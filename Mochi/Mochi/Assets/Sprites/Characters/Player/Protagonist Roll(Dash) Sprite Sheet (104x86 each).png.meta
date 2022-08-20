@@ -1,0 +1,348 @@
+fileFormatVersion: 2
+guid: 6aa0b51a562b7bc4a82b7ae4c716927e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6245766111159159005
+    second: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_0
+  - first:
+      213: 5202059766146589620
+    second: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_1
+  - first:
+      213: -9010259829725988634
+    second: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_5
+  - first:
+      213: 2181609647519452123
+    second: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_6
+  - first:
+      213: -792714555936098381
+    second: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_7
+  - first:
+      213: -7776448243218004615
+    second: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_10
+  - first:
+      213: 6065660163961821974
+    second: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_12
+  - first:
+      213: 4461699594625110270
+    second: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_13
+  - first:
+      213: 2327902357568184699
+    second: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_2
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_0
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 91
+        width: 71
+        height: 63
+      alignment: 9
+      pivot: {x: 0.73239434, y: 0.6825397}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3277f2a30d49259a0800000000000000
+      internalID: -6245766111159159005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_1
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 91
+        width: 59
+        height: 64
+      alignment: 9
+      pivot: {x: 0.88135594, y: 0.671875}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b3e48dabcd613840800000000000000
+      internalID: 5202059766146589620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_5
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 91
+        width: 48
+        height: 59
+      alignment: 9
+      pivot: {x: 1.0833334, y: 0.7288136}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e8f53b5c6025f280800000000000000
+      internalID: -9010259829725988634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_6
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 91
+        width: 49
+        height: 62
+      alignment: 9
+      pivot: {x: 1.0612245, y: 0.6935484}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdb46fe6a62a64e10800000000000000
+      internalID: 2181609647519452123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_7
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 6
+        width: 48
+        height: 60
+      alignment: 9
+      pivot: {x: 1.0833334, y: 0.71666664}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b7b525bf46bff4f0800000000000000
+      internalID: -792714555936098381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_10
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 7
+        width: 70
+        height: 63
+      alignment: 9
+      pivot: {x: 0.74285716, y: 0.6825397}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 975c7c03681841490800000000000000
+      internalID: -7776448243218004615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_12
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 6
+        width: 48
+        height: 62
+      alignment: 9
+      pivot: {x: 1.0833334, y: 0.6935484}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61b9e2928cd8d2450800000000000000
+      internalID: 6065660163961821974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_13
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 8
+        width: 54
+        height: 57
+      alignment: 9
+      pivot: {x: 0.962963, y: 0.75438595}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef0522864242bed30800000000000000
+      internalID: 4461699594625110270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protagonist Roll(Dash) Sprite Sheet (104x86 each)_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5
+        width: 413
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7165a64cde5e4020800000000000000
+      internalID: 2327902357568184699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

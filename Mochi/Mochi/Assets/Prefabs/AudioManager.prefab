@@ -1,0 +1,154 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6934267638079447700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6934267638079447698}
+  - component: {fileID: 6934267638079447699}
+  - component: {fileID: 6934267638079447697}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6934267638079447698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6934267638079447700}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6934267638079447699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6934267638079447700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30e3a8e56ac3fa24dad2531a956a9681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmMixerGroup: {fileID: 1610648362006222961, guid: 66931f439f948e048ae61153ac326e6c, type: 2}
+  audioMixer: {fileID: 24100000, guid: 66931f439f948e048ae61153ac326e6c, type: 2}
+  sfxMixerGroup: {fileID: 2086635811741092248, guid: 66931f439f948e048ae61153ac326e6c, type: 2}
+  masterMixerGroup: {fileID: 24300002, guid: 66931f439f948e048ae61153ac326e6c, type: 2}
+  sounds:
+  - audioType: 0
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 559ed8588d966b246a2beb31e8b04c8a, type: 3}
+    clipName: Click
+    isLoop: 0
+    playOnAwake: 0
+    volume: 1
+  - audioType: 1
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: c1eba8323b07e314297799f1ff09a92c, type: 3}
+    clipName: BGM
+    isLoop: 1
+    playOnAwake: 1
+    volume: 1
+  - audioType: 1
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: e357ab1cfedee3147b3725a8eeac5f35, type: 3}
+    clipName: lose
+    isLoop: 0
+    playOnAwake: 0
+    volume: 1
+  - audioType: 0
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: c1a339523343e484da6926f4aaafb91b, type: 3}
+    clipName: attack1
+    isLoop: 0
+    playOnAwake: 0
+    volume: 1
+  - audioType: 0
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 969609eabde939c49b957020c7ef72c9, type: 3}
+    clipName: attack2
+    isLoop: 0
+    playOnAwake: 0
+    volume: 1
+  - audioType: 0
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: efe30b06c0943d14990cb582cba5578a, type: 3}
+    clipName: jump
+    isLoop: 0
+    playOnAwake: 0
+    volume: 1
+  - audioType: 0
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: a12767dd7952b224c86e11df99f84822, type: 3}
+    clipName: landing
+    isLoop: 0
+    playOnAwake: 0
+    volume: 1
+  - audioType: 0
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 9947cfc101c016f4392abbdcebb41198, type: 3}
+    clipName: jump2
+    isLoop: 1
+    playOnAwake: 0
+    volume: 1
+  - audioType: 0
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 26d6cfb6b6fad504bbc0049c15a6177b, type: 3}
+    clipName: collect
+    isLoop: 0
+    playOnAwake: 0
+    volume: 1
+  - audioType: 1
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 2647f6f709523f54e8b1edb519571832, type: 3}
+    clipName: win
+    isLoop: 0
+    playOnAwake: 0
+    volume: 1
+  - audioType: 0
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: ed63a7053332ba24eab6f89a1b60b1cc, type: 3}
+    clipName: dash
+    isLoop: 0
+    playOnAwake: 0
+    volume: 1
+  - audioType: 0
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 52b24deaff44640409bc8afae58cc5a9, type: 3}
+    clipName: Fungi Attack
+    isLoop: 0
+    playOnAwake: 0
+    volume: 1
+  - audioType: 0
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: ba34ebab10df82d4fa704ae8cc511faa, type: 3}
+    clipName: Damaged
+    isLoop: 0
+    playOnAwake: 0
+    volume: 1
+--- !u!114 &6934267638079447697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6934267638079447700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 996a03a225160dd4ebef4c7f67d0a816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
