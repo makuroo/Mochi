@@ -140,6 +140,20 @@ MonoBehaviour:
     isLoop: 0
     playOnAwake: 0
     volume: 1
+  - audioType: 0
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: bc3316a06dd97bf43828a477c7e4af51, type: 3}
+    clipName: Buff
+    isLoop: 0
+    playOnAwake: 0
+    volume: 1
+  - audioType: 0
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: a84e125c962d8d34a9fd6275c3f95611, type: 3}
+    clipName: Debuff
+    isLoop: 0
+    playOnAwake: 0
+    volume: 1
 --- !u!114 &6934267638079447697
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -151,3 +151,4 @@ MonoBehaviour:
   speed: 0.5
   isMovingLeft: 0
   spirit: {fileID: -8200512739421707473, guid: c6e7ad1d0d8e07247810e1bb4c0160cc, type: 3}
+  attackArea: {fileID: 0}

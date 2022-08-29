@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -23,8 +23,11 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private bool isMovingLeft;
     [SerializeField] private Sprite spirit;
+    [SerializeField] private Totem totem;
 
     private BoxCollider2D enemyCollider;
+    [SerializeField] public BoxCollider2D attackArea;
+    private bool attack =true;
 
     // Start is called before the first frame update
     void Awake()
@@ -35,6 +38,7 @@ public class Enemy : MonoBehaviour
         anim = transform.GetComponent<Animator>();
         leftEdge = transform.position.x - moveDistance;
         rightEdge = transform.position.x + moveDistance;
+        totem = GameObject.FindGameObjectWithTag("Last Totem").GetComponent<Totem>();
     }
 
     // Update is called once per frame
@@ -75,6 +79,7 @@ public class Enemy : MonoBehaviour
             if (gameObject.CompareTag("Fungi Spirit"))
                 Destroy(gameObject.GetComponentInChildren<ParticleSystem>());
             speed = 0;
+            gameObject.layer = 0;
             isMovingLeft = false;
             sr.sprite = spirit;
             gameObject.tag = "Spirit";
@@ -88,14 +93,34 @@ public class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if(totem.lastTotemSpirits >= 15){
+            if(gameObject.CompareTag("Enemy") || gameObject.CompareTag("Fungi") || gameObject.CompareTag("Bird"))
+                gameObject.SetActive(false);
+            else
+            {
+                speed = 0;
+                gameObject.layer = 0;
+                isMovingLeft = false;
+                sr.sprite = spirit;
+                gameObject.tag = "Spirit";
+                transform.localScale = new Vector2(1f, 1f);
+                enemyCollider.size = new Vector2(0.28f, 0.488f);
+                enemyCollider.offset = new Vector2(0f, 0f);
+                enemyCollider.isTrigger = true;
+                anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animation/Collectibles/spirit") as RuntimeAnimatorController;
+            }
+        }
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player") && (gameObject.CompareTag("Fungi") || gameObject.CompareTag("Fungi Spirit")))
         {
-            Debug.Log("enter");
+            cdTime = 2f;
             countDown = true;
-            StartCoroutine("FungiAttack");
+            if(attack)
+                StartCoroutine("FungiAttack");
         }
     }
 
@@ -103,14 +128,18 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && (gameObject.CompareTag("Fungi") || gameObject.CompareTag("Fungi Spirit")))
         {
-            Debug.Log("exit");
             countDown = false;
         }
     }
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
+        if(health > 0)
+        {
+            health -= damage;
+            StartCoroutine("Damaged");
+        }
+
     }
 
     private IEnumerator FungiAttack()
@@ -118,16 +147,26 @@ public class Enemy : MonoBehaviour
         PlayerStatus iFrame = GameObject.FindObjectOfType<PlayerStatus>();
         while(countDown == true)
         {
+            attack = false;
             yield return new WaitForSeconds(cdTime);
+            cdTime = 2.5f;
+            AudioManager.Instance.PlayClipByName("Fungi Attack");
+            ps.Play();
             if (countDown == true)
             {
-                AudioManager.Instance.PlayClipByName("Fungi Attack");
-                ps.Play();
-                AudioManager.Instance.PlayClipByName("Damaged");
-                GameObject.FindObjectOfType<PlayerStatus>().health -= transform.GetComponent<Enemy>().dmg;
-                StartCoroutine(iFrame.iFrame());
+                AudioManager.Instance.PlayClipByName("Damaged");           
             }
+            attack = true;
         }
+    }
+
+
+
+    private IEnumerator Damaged()
+    {
+        transform.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+        yield return new WaitForSeconds(0.3f);
+        transform.GetComponent<SpriteRenderer>().color = new Color(1,1,1,1f);
     }
     
 }

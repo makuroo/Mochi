@@ -36,15 +36,22 @@ public class Bullet : MonoBehaviour
     //after bullet hit
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Untagged") || collision.gameObject.CompareTag("Sensor"))
+        if (collision.gameObject.CompareTag("Untagged") || collision.gameObject.CompareTag("Sensor") 
+            || collision.gameObject.CompareTag("Ground")|| collision.gameObject.CompareTag("interactable platform"))
         {
             hit = true;
             Deactivate();
         }
 
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Enemy Spirit") || collision.gameObject.CompareTag("Boss"))
+        if (collision.gameObject.CompareTag("Boss"))
         {
             collision.transform.GetComponent<Boss>().health -= playerStats.skillDmg;
+            Deactivate();
+        }else if(collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Enemy Spirit")
+            || collision.gameObject.CompareTag("Fungi") || collision.gameObject.CompareTag("Fungi Spirit")
+            || collision.gameObject.CompareTag("Bird") || collision.gameObject.CompareTag("Bird Spirit"))
+        {
+            collision.gameObject.GetComponent<Enemy>().health -= playerStats.skillDmg;
             Deactivate();
         }
     }

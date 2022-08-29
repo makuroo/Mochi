@@ -13,9 +13,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float groundCheckRadius = .5f;
     [SerializeField] float dashSpeed = 20f;
     [SerializeField] float dashTime = 0.1f;
-    [SerializeField] float dashCoolDown = 1f;
+    [SerializeField] float dashCoolDown = 2f;
     [SerializeField] float attackRange = 1f;
     [SerializeField] float startTimeBtwAttack = .3f;
+    [SerializeField] float boxSizeX = 2f;
+    [SerializeField] float boxSizeY = 2f;
 
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private LayerMask whatIsPlatform;
@@ -23,16 +25,17 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private TrailRenderer tr;
 
-    private float jumpHeightMultiplier = 0.5f;
+    private float jumpHeightMultiplier = 1f;
     private float movementInputDirection;
     private float timeBtwAttack = 0f;
 
-    private bool isGrounded;
+    [SerializeField]private bool isGrounded;
     private bool isFacingRight;
     private bool checkJumpMultiplier;
     private bool isDashing = false;
     private bool canDash = true;
     private bool isAttacking = false;
+    private bool onPlatform = false;
     [SerializeField]private bool jump = false;
 
     private List<string> AttackSFX = new List<string> {"attack1", "attack2"};
@@ -45,11 +48,12 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public Transform attackPos;
   
-    private void Start()
+    private void Awake()
     {
         rb = transform.GetComponent<Rigidbody2D>();
         anim = transform.GetComponent<Animator>();
         playerStats = transform.GetComponent<PlayerStatus>();
+        transform.rotation = Quaternion.identity;
     }
 
     private void Update()
@@ -59,21 +63,21 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded)
+        if (Input.GetKey(KeyCode.W) && isGrounded)
         {
             jump = true;
             anim.SetBool("isJumping", true);
             AudioManager.Instance.PlayClipByName("jump");
             checkJumpMultiplier = true;
-            rb.AddForce(jumpForce * Vector2.up, ForceMode2D.Impulse);
+            rb.velocity = new Vector2(rb.position.x,jumpForce);
         }
 
-        if (Input.GetKeyDown(KeyCode.S) && interactablePlatform != null)
+        if (Input.GetKey(KeyCode.S) && interactablePlatform != null)
         {
             StartCoroutine(ColliderControl());
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && canDash)
         {
             anim.SetBool("isDashing",true);
             StartCoroutine(Dash());
@@ -90,14 +94,21 @@ public class PlayerMovement : MonoBehaviour
                anim.SetBool("isAttacking", isAttacking);
                AudioManager.Instance.PlayClipByName(AttackSFX[index]);
                Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemies);
+               
                for(int i =0; i<enemiesToDamage.Length; i++)
                {
-                    if (!enemiesToDamage[i].CompareTag("Boss"))
+                    if (!enemiesToDamage[i].CompareTag("Boss") && !enemiesToDamage[i].CompareTag("Fungi") && !enemiesToDamage[i].CompareTag("Fungi Spirit"))
                     {
                         enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(playerStats.basicAttDmg);
-                    }else if (enemiesToDamage[i].CompareTag("Boss"))
+                    }
+                    else if(enemiesToDamage[i].gameObject.CompareTag("Fungi") || enemiesToDamage[i].gameObject.CompareTag("Fungi Spirit"))
                     {
-                        enemiesToDamage[i].GetComponent<Boss>().health -= playerStats.basicAttDmg;
+                        Debug.Log("fungi");
+                        if(enemiesToDamage[i] == enemiesToDamage[i].gameObject.GetComponent<Enemy>().attackArea)
+                        {
+                            Debug.Log("attacked");
+                            enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(playerStats.basicAttDmg);
+                        }
                     }
                }
            }
@@ -107,6 +118,8 @@ public class PlayerMovement : MonoBehaviour
         {
            timeBtwAttack -= Time.deltaTime;
         }
+
+        
     }
 
     private void FixedUpdate()
@@ -129,9 +142,16 @@ public class PlayerMovement : MonoBehaviour
         movementInputDirection = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(playerStats.playerSpeed* movementInputDirection,rb.velocity.y);
 
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius, whatIsGround) ||
-                     Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsPlatform);
+        isGrounded = Physics2D.OverlapBox(groundCheck.position, new Vector2(boxSizeX, boxSizeY),0f, whatIsGround) ||
+                     Physics2D.OverlapBox(groundCheck.position, new Vector2(boxSizeX, boxSizeY),0f, whatIsPlatform);
 
+        onPlatform = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsPlatform);
+        Collider2D interactablePlatformCollider = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsPlatform);
+        if (onPlatform)
+        {
+            interactablePlatform = interactablePlatformCollider.gameObject;
+        }
+            
         if(movementInputDirection > 0.01f)
         {
             isFacingRight = true;
@@ -170,10 +190,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("interactable platform"))
-        {
-            interactablePlatform = collision.gameObject;
-        }
 
         if(collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("interactable platform") )
         {
@@ -227,13 +243,26 @@ public class PlayerMovement : MonoBehaviour
         tr.emitting = false;
         rb.gravityScale = originalGravity;
         isDashing = false;
+        Physics2D.IgnoreLayerCollision(7, 8, true);
+        yield return new WaitForSeconds(1f);
+        Physics2D.IgnoreLayerCollision(7, 8, false);
         yield return new WaitForSeconds(dashCoolDown);
         canDash = true;
     }
 
+    //private IEnumerator JumpStopper()
+    //{
+    //    x = false;
+    //    isGrounded = false;
+    //    yield return new WaitForSeconds(10f);
+    //    Debug.Log("Work");
+    //    isGrounded = true;
+    //    x = true;
+    //}
+
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        Gizmos.DrawWireCube(groundCheck.position, new Vector3(boxSizeX,boxSizeY, 0f));
     }
 
     private void OnDrawGizmosSelected()

@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Totem : MonoBehaviour
@@ -24,33 +24,40 @@ public class Totem : MonoBehaviour
 
     void Update()
     {
-        if(nextBuffSpirits<=0)
+        if (nextBuffSpirits<=0)
         {
             if (playerStats.health != 50)
             {
-               playerStats.health += 15;
+               playerStats.health += 10;
                playerStats.health = Mathf.Clamp(playerStats.health, 0f, 50f);
             }
             playerStats.playerSpeed += 1f;
-            playerStats.basicAttDmg += 5;
+            playerStats.basicAttDmg += 3;
             playerStats.skillDmg += 5;
             nextBuffSpirits += 5;
+            AudioManager.Instance.PlayClipByName("Buff");
         }
-
+        if(playerStats.passed == true)
+        {
+            barier.GetComponent<BoxCollider2D>().isTrigger = false;
+        }
         if (storedSpirits >= 15 )
          {
-            barier.GetComponent<BoxCollider2D>().isTrigger = true;
+            if(playerStats.passed == false)
+            {
+                barier.GetComponent<BoxCollider2D>().isTrigger = true;
+            }   
             transform.GetChild(0).gameObject.SetActive(true);
          }else if (lastTotemSpirits  >= 15 && win == false)
          {
             win = true;
-            clearedLevels++;
+            clearedLevels = SceneManager.GetActiveScene().buildIndex + 1;
             PlayerPrefs.SetInt("ClearedLevels", clearedLevels);
-            Debug.Log(PlayerPrefs.GetInt("ClearedLevels"));
             transform.GetChild(0).gameObject.SetActive(true);
             VictoryPanel.SetActive(true);
             AudioManager.Instance.StopClipByName("BGM");
             AudioManager.Instance.PlayClipByName("win");
-         }  
+            Time.timeScale = 0;
+         }
     }
 }

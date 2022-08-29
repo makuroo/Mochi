@@ -93,14 +93,14 @@ Transform:
   m_GameObject: {fileID: 1537605609931823514}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -14.434, y: -3.705594, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.3792, y: 1.3792, z: 0.6896}
   m_Children:
   - {fileID: 1537605610208627424}
   - {fileID: 1537605608576044261}
   - {fileID: 1537605609014070604}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1537605609931823517
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -194,7 +194,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -214,12 +214,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 50
   basicAttDmg: 15
-  spirits: 3
+  spirits: 0
   skillDmg: 20
   playerSpeed: 5
   iFrameDuration: 2
   numberOfFlash: 3
+  passed: 0
   cam: {fileID: 0}
+  skillIcon: {fileID: 0}
   GameOver: {fileID: 0}
 --- !u!114 &1537605609931823519
 MonoBehaviour:
@@ -234,13 +236,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactablePlatform: {fileID: 0}
-  jumpForce: 15
-  groundCheckRadius: 0.15
+  jumpForce: 10
+  groundCheckRadius: 0.2
   dashSpeed: 30
   dashTime: 0.1
-  dashCoolDown: 1
-  attackRange: 0.5
+  dashCoolDown: 2
+  attackRange: 0.35
   startTimeBtwAttack: 0
+  boxSizeX: 0.68
+  boxSizeY: 0.08
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
@@ -251,6 +255,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   tr: {fileID: 1537605609931823504}
+  isGrounded: 0
   jump: 0
   playerCollider: {fileID: 1537605609931823516}
   groundCheck: {fileID: 1537605610208627424}
@@ -281,6 +286,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   attackCooldown: 0
+  skillImage: {fileID: 0}
+  manager: {fileID: 0}
 --- !u!96 &1537605609931823504
 TrailRenderer:
   serializedVersion: 2

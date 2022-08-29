@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4068486830712632150}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -19.71, y: -3.59, z: 0}
-  m_LocalScale: {x: 0.5331, y: 0.5685, z: 1}
+  m_LocalScale: {x: 0.549778, y: 0.549778, z: 0.54977804}
   m_Children:
   - {fileID: 2479202421784205868}
   m_Father: {fileID: 0}
@@ -125,7 +125,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   storedSpirits: 0
+  lastTotemSpirits: 0
   nextBuffSpirits: 5
+  barier: {fileID: 0}
+  VictoryPanel: {fileID: 0}
 --- !u!1001 &4068486829763832645
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class CameraFit : MonoBehaviour
@@ -9,6 +9,7 @@ public class CameraFit : MonoBehaviour
     public float yVariable;
     public GameObject Boss;
     private PlayerStatus playerStats;
+    [SerializeField] private GameObject healthbar;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -30,10 +31,10 @@ public class CameraFit : MonoBehaviour
             Camera.main.orthographicSize = sr.bounds.size.y / 2 * differenceInSize;
         }
 
-        if (playerStats.passed)
+        if (playerStats.passed && SceneManager.GetActiveScene().buildIndex == 3 && Boss!=null)
         {
             Boss.GetComponent<Boss>().enabled = true;
-            Boss.transform.GetChild(0).gameObject.SetActive(true);
+            healthbar.SetActive(true);
         }
 
     }

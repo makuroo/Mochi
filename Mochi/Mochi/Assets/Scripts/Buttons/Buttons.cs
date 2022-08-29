@@ -5,6 +5,7 @@ public class Buttons : MonoBehaviour
 {
     public GameObject settingPanel;
     public GameObject pausePanel;
+    public GameObject creditsPanel;
 
     [SerializeField] GameObject levelPanel;
     [SerializeField] GameObject confirmationPanel;
@@ -18,6 +19,7 @@ public class Buttons : MonoBehaviour
     public void Setting()
     {
         settingPanel.SetActive(true);
+        pausePanel.SetActive(false);
     }
 
     public void Resume()
@@ -37,6 +39,7 @@ public class Buttons : MonoBehaviour
     public void CloseSetting()
     {
         settingPanel.SetActive(false);
+        pausePanel.SetActive(true);
     }
 
     public void MainMenu()
@@ -49,6 +52,16 @@ public class Buttons : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1;
+    }
+
+    public void Credits()
+    {
+        creditsPanel.SetActive(true);
+    }
+
+    public void CloseCredits()
+    {
+        creditsPanel.SetActive(false);
     }
 
     public void NextLevel()
@@ -82,5 +95,9 @@ public class Buttons : MonoBehaviour
     public void LevelThree()
     {
         SceneManager.LoadScene(3);
+    }
+    public void LevelBack()
+    {
+        levelPanel.SetActive(false);
     }
 }

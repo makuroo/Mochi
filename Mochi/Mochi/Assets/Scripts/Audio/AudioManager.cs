@@ -20,8 +20,8 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         UpdateMixerVolume();
-        Debug.Log(bgmMixerGroup.audioMixer.GetFloat("BGM Volume",out value));
-        Debug.Log($"BGM Volume: {value}");
+        //Debug.Log(bgmMixerGroup.audioMixer.GetFloat("BGM Volume",out value));
+        //Debug.Log($"BGM Volume: {value}");
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();

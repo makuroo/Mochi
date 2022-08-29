@@ -22,10 +22,9 @@ public class UIManager : MonoBehaviour
     void FixedUpdate()
     {
         healthBar.value = playerStats.health;
-        hpText.text = playerStats.health.ToString();
         if (playerStats.health <= 0)
             Time.timeScale = 0;
-        spiritsText.text = (3 - playerStats.spirits).ToString();
+        spiritsText.text = (playerStats.spirits).ToString();
         timeValue += Time.deltaTime;
         int minutes = Mathf.FloorToInt(timeValue / 60);
         int seconds = Mathf.FloorToInt(timeValue % 60);
@@ -35,8 +34,8 @@ public class UIManager : MonoBehaviour
             nextDebuff += 60;
             playerStats.health -= 5;
             playerStats.basicAttDmg -= 3;
-            playerStats.skillDmg -= 3;
             playerStats.playerSpeed -= 1;
+            AudioManager.Instance.PlayClipByName("Debuff");
         }
     }
 

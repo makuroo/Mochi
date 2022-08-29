@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 193235705207534468}
   - component: {fileID: 193235705207534467}
   - component: {fileID: 193235705207534471}
+  - component: {fileID: 8433090912136651473}
   m_Layer: 8
   m_Name: Fungi
   m_TagString: Fungi
@@ -107,6 +108,8 @@ MonoBehaviour:
   speed: 0
   isMovingLeft: 0
   spirit: {fileID: -8200512739421707473, guid: c6e7ad1d0d8e07247810e1bb4c0160cc, type: 3}
+  totem: {fileID: 0}
+  attackArea: {fileID: 193235705207534467}
 --- !u!61 &193235705207534467
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -120,7 +123,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.008034229, y: 0.042713404}
+  m_Offset: {x: -0.0035390854, y: 0.061074734}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -131,7 +134,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7194319, y: 0.76941633}
+  m_Size: {x: 0.81396866, y: 0.806139}
   m_EdgeRadius: 0
 --- !u!95 &193235705207534471
 Animator:
@@ -152,6 +155,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &8433090912136651473
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193235705207534466}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.016429424, y: 0.059533715}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.82, y: 0.92}
+    newSize: {x: 0.82, y: 0.92}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.091485, y: 0.80093265}
+  m_EdgeRadius: 0
 --- !u!1 &193235705227545117
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +192,8 @@ GameObject:
   - component: {fileID: 193235705227545118}
   - component: {fileID: 193235705227545120}
   - component: {fileID: 193235705227545119}
-  m_Layer: 0
+  - component: {fileID: 4029316260508227239}
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +208,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 193235705227545117}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -34.8}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 193235705207534470}
@@ -3763,10 +3793,10 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 4
-    type: 0
-    collisionMode: 0
+    type: 1
+    collisionMode: 1
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
     multiplyColliderForceByParticleSpeed: 0
@@ -3828,7 +3858,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3881,7 +3911,7 @@ ParticleSystem:
     m_EnergyLossOnCollision:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -3936,11 +3966,11 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 128
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -4958,3 +4988,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &4029316260508227239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193235705227545117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26de60ab5dc951245b1ab7d0c5721b71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

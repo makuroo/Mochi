@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-    public int health = 480;
+    public float health = 480;
     private int clawDamage = 10;
     public int projectileDamage = 8;
     [SerializeField] private bool attack = false;
@@ -18,25 +18,28 @@ public class Boss : MonoBehaviour
     [SerializeField] private float fireRate = 5f;
     private float nextFire;
     [SerializeField] private Slider healthBar;
-
     [SerializeField] private Animator anim;
+    [SerializeField] private Totem totem;
+    private float timeSinceActive = 0;
+    private int nextDamage = 5;
 
     private void Start()
     {
         nextFire = 5f;
         player = GameObject.FindObjectOfType<PlayerStatus>();
         source = transform.GetComponent<AudioSource>();
-        healthBar = transform.GetChild(0).GetChild(0).GetComponent<Slider>();
     }
     // Start is called before the first frame update
     void Awake()
     {
         anim = transform.GetComponent<Animator>();
+        totem = GameObject.FindGameObjectWithTag("Totem").GetComponent<Totem>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        timeSinceActive += Time.deltaTime;
         healthBar.value = health;
         if (player != null || player.health > 0)
         {
@@ -44,6 +47,7 @@ public class Boss : MonoBehaviour
         }
         if (health <= 0)
         {
+            health = 0;
             if(played == false)
             {
                 source.clip = SFX[3];
@@ -52,6 +56,16 @@ public class Boss : MonoBehaviour
             }
             StopCoroutine(player.iFrame());
             Destroy(gameObject, 1f);
+        }
+        if(totem.lastTotemSpirits == nextDamage)
+        {
+            health -= (0.3f * health);
+            nextDamage += 5;
+        }
+
+        if(totem.lastTotemSpirits >= 15)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -90,7 +104,7 @@ public class Boss : MonoBehaviour
 
     private void CheckTimeToFire()
     {
-        if (Time.timeSinceLevelLoad > nextFire && player!=null){
+        if (timeSinceActive > nextFire && player!=null){
             if (attack)
             {
                 anim.SetBool("attack", true);
@@ -108,7 +122,7 @@ public class Boss : MonoBehaviour
                 basicAttackCount++;
             }
             anim.SetInteger("BasicAttackCount", basicAttackCount);
-            nextFire = Time.timeSinceLevelLoad + fireRate;
+            nextFire = timeSinceActive + fireRate;
         }
     }
 

@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,29 +10,34 @@ public class PlayerSkill : MonoBehaviour
     [SerializeField] private float attackCooldown;
     private PlayerStatus playerStats;
     private Animator anim;
- //   [SerializeField] private AudioManager manager;
+    public Image skillImage;
+    [SerializeField] private AudioManager manager;
 
     private void Awake()
     {
         attackCooldown = 0;
         playerStats = transform.GetComponent<PlayerStatus>();
         anim = transform.GetComponent<Animator>();
+        manager = GameObject.FindObjectOfType<AudioManager>();
     }
-
-    private void FixedUpdate()
+    private void Update()
     {
         if(SceneManager.GetActiveScene().buildIndex == 3)
+            skillImage.fillAmount = (10f - attackCooldown) / nextAttack;
+        if (SceneManager.GetActiveScene().buildIndex == 3 && playerStats.passed == true)
         {
-            if (Input.GetKeyDown(KeyCode.E) && attackCooldown == 0)
+            if (Input.GetKeyDown(KeyCode.E) && attackCooldown == 0 && playerStats.spirits !=0 && playerStats.spirits>0)
             {
+                Debug.Log("skill");
+                playerStats.spirits-=1;
+                attackCooldown += nextAttack;
                 anim.SetBool("isSkill", true);
-                Attack();
-                //manager.PlayShotSound();
+                manager.PlayClipByName("skill");
             }
         }
         if (attackCooldown > 0)
         {
-            if((attackCooldown-Time.deltaTime) < 0)
+            if ((attackCooldown - Time.deltaTime) < 0)
             {
                 attackCooldown = 0;
             }
@@ -48,7 +52,6 @@ public class PlayerSkill : MonoBehaviour
     {
         bullets[FindBullet()].transform.position = firePoint.position;
         bullets[FindBullet()].GetComponent<Bullet>().SetDirection(transform.localRotation.eulerAngles.y);
-        attackCooldown += nextAttack;
     }
     private int FindBullet()
     {
@@ -65,6 +68,7 @@ public class PlayerSkill : MonoBehaviour
 
     public void SkillEnd()
     {
+        Attack();
         anim.SetBool("isSkill", false);
     }
 }

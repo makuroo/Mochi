@@ -9,9 +9,9 @@ public class PlayerStatus : MonoBehaviour
     public float health = 50;
     [Range(1, Mathf.Infinity)]
     public int basicAttDmg = 15;
-    public int spirits = 3;
+    public int spirits = 0;
     [Range(1, Mathf.Infinity)]
-    public int skillDmg = 20;
+    public int skillDmg = 25;
     [Range(1, Mathf.Infinity)]
     public float playerSpeed = 10f;
 
@@ -28,6 +28,7 @@ public class PlayerStatus : MonoBehaviour
     private SpriteRenderer sr;
     private UIManager ui;
 
+    [SerializeField] private GameObject skillIcon;
     [SerializeField] private GameObject GameOver;
 
     private void Start()
@@ -53,6 +54,7 @@ public class PlayerStatus : MonoBehaviour
             AudioManager.Instance.PlayClipByName("lose");
             GameOver.gameObject.SetActive(true);
             Destroy(gameObject);
+            Time.timeScale = 0;
         }
     }
 
@@ -81,10 +83,10 @@ public class PlayerStatus : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Spirit"))
         {
-            if (spirits > 0)
+            if (spirits < 3)
             {
                 AudioManager.Instance.PlayClipByName("collect");
-                spirits--;
+                spirits++;
                 Destroy(collision.gameObject);
             }
         }
@@ -96,19 +98,18 @@ public class PlayerStatus : MonoBehaviour
             Debug.Log("a");
             cam = FindObjectOfType<Camera>();
             cam.transform.position = new Vector3(11.9f, -0.45f, -35.11629f);
-            ui.timeValue = 0f;
             transform.position = new Vector2(1.081689f, transform.position.y);
-            totem.barier.GetComponent<BoxCollider2D>().isTrigger = false;
+            skillIcon.SetActive(true);
         }
 
-        if (collision.gameObject.CompareTag("Totem")  )
+        if (collision.gameObject.CompareTag("Totem") && totem.storedSpirits < 15)
         {
             totem = collision.GetComponent<Totem>();
             inArea = true;
             
         }
 
-        if (collision.gameObject.CompareTag("Last Totem"))
+        if (collision.gameObject.CompareTag("Last Totem") && totem.lastTotemSpirits < 15)
         {
             totem = collision.GetComponent<Totem>();
             inAreaLast = true;
@@ -130,28 +131,43 @@ public class PlayerStatus : MonoBehaviour
         }
     }
 
+    private void OnParticleCollision(GameObject other)
+    {
+        Debug.Log(other.name);
+    }
+
     private void TransferSpirits()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+            if(spirits != 0)
+                AudioManager.Instance.PlayClipByName("collect");
+            totem.nextBuffSpirits = totem.nextBuffSpirits - spirits;
             if (inAreaLast)
             {
-                totem.lastTotemSpirits += 3 - spirits;
-                if (totem.storedSpirits > 15)
+                totem.lastTotemSpirits += spirits;
+                if (totem.lastTotemSpirits > 15)
                 {
                     spirits = totem.lastTotemSpirits - 15;
+                }
+                else
+                {
+                    spirits -= spirits;
                 }
             }
             else
             {
-                totem.storedSpirits += 3 - spirits;
+                totem.storedSpirits += spirits;
                 if(totem.storedSpirits > 15)
                 {
                     spirits = totem.storedSpirits - 15;
                 }
+                else
+                {
+                    spirits -= spirits;
+                }
             }
-            totem.nextBuffSpirits -= 3 - spirits;
-            spirits = 3;
+            Debug.Log("buff");
         }
     }
 
@@ -164,7 +180,7 @@ public class PlayerStatus : MonoBehaviour
             yield return new WaitForSeconds(iFrameDuration/(numberOfFlash*2));
             sr.color = Color.white;
             yield return new WaitForSeconds(.3f);
-        }   
+        }
         Physics2D.IgnoreLayerCollision(7, 8, false);
     }
 }
