@@ -21,7 +21,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private Totem totem;
     private float timeSinceActive = 0;
-    private int nextDamage = 5;
+    public int nextDamage = 5;
 
     private void Start()
     {
@@ -33,7 +33,7 @@ public class Boss : MonoBehaviour
     void Awake()
     {
         anim = transform.GetComponent<Animator>();
-        totem = GameObject.FindGameObjectWithTag("Totem").GetComponent<Totem>();
+        totem = GameObject.FindGameObjectWithTag("Last Totem").GetComponent<Totem>();
     }
 
     // Update is called once per frame
@@ -57,7 +57,7 @@ public class Boss : MonoBehaviour
             StopCoroutine(player.iFrame());
             Destroy(gameObject, 1f);
         }
-        if(totem.lastTotemSpirits == nextDamage)
+        if(totem.lastTotemSpirits >= nextDamage)
         {
             health -= (0.3f * health);
             nextDamage += 5;
@@ -65,7 +65,8 @@ public class Boss : MonoBehaviour
 
         if(totem.lastTotemSpirits >= 15)
         {
-            Destroy(gameObject);
+            healthBar.transform.position = new Vector2(0f, 3f);
+            health = 0;
         }
     }
 

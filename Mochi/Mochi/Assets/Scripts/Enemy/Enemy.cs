@@ -24,10 +24,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] private bool isMovingLeft;
     [SerializeField] private Sprite spirit;
     [SerializeField] private Totem totem;
+    [SerializeField] private AudioSource audioSource;
 
     private BoxCollider2D enemyCollider;
     [SerializeField] public BoxCollider2D attackArea;
+
     private bool attack =true;
+    private bool play = true;
 
     // Start is called before the first frame update
     void Awake()
@@ -39,13 +42,14 @@ public class Enemy : MonoBehaviour
         leftEdge = transform.position.x - moveDistance;
         rightEdge = transform.position.x + moveDistance;
         totem = GameObject.FindGameObjectWithTag("Last Totem").GetComponent<Totem>();
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
         
-        if(!(transform.CompareTag("Fungi") || transform.CompareTag("Fungi Spirit")))
+        if(!(transform.CompareTag("Fungi") || transform.CompareTag("Fungi Spirit") || transform.CompareTag("Spirit")))
         {
 
             if (isMovingLeft)
@@ -83,6 +87,7 @@ public class Enemy : MonoBehaviour
             isMovingLeft = false;
             sr.sprite = spirit;
             gameObject.tag = "Spirit";
+            audioSource.PlayOneShot(audioSource.clip);
             transform.localScale = new Vector2(1f, 1f);
             enemyCollider.size =new Vector2(0.28f, 0.488f);
             enemyCollider.offset = new Vector2(0f, 0f);
@@ -104,6 +109,9 @@ public class Enemy : MonoBehaviour
                 isMovingLeft = false;
                 sr.sprite = spirit;
                 gameObject.tag = "Spirit";
+                if(play)
+                    audioSource.PlayOneShot(audioSource.clip);
+                play = false;
                 transform.localScale = new Vector2(1f, 1f);
                 enemyCollider.size = new Vector2(0.28f, 0.488f);
                 enemyCollider.offset = new Vector2(0f, 0f);

@@ -6,7 +6,6 @@ public class Particle : MonoBehaviour
 {
     private int fungiDmg;
     private PlayerStatus iFrame;
-    private int x = 0;
     private void Awake()
     {
         fungiDmg = gameObject.GetComponentInParent<Enemy>().dmg;
@@ -17,11 +16,10 @@ public class Particle : MonoBehaviour
         Debug.Log(other.name);
         if(other.name == "Player")
         {
-            x++;
-            if (x == 1)
+            if (iFrame.damaged == true)
             {
                 other.GetComponent<PlayerStatus>().health -= fungiDmg;
-                StartCoroutine(iFrame.iFrame());
+                iFrame.damaged = false;
             }
         }
     }

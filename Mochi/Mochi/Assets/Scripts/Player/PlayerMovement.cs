@@ -80,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse1) && canDash)
         {
             anim.SetBool("isDashing",true);
+            Debug.Log("Dash");
             StartCoroutine(Dash());
         }
 
@@ -249,16 +250,6 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashCoolDown);
         canDash = true;
     }
-
-    //private IEnumerator JumpStopper()
-    //{
-    //    x = false;
-    //    isGrounded = false;
-    //    yield return new WaitForSeconds(10f);
-    //    Debug.Log("Work");
-    //    isGrounded = true;
-    //    x = true;
-    //}
 
     private void OnDrawGizmos()
     {

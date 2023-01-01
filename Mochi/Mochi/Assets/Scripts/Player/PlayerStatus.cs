@@ -19,9 +19,12 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField] private float iFrameDuration;
     [SerializeField] private float numberOfFlash;
 
+    private int x = 0;
+
     private bool inArea;
     private bool inAreaLast;
     public bool passed = false;
+    public bool damaged = false;
 
     public Camera cam;
     private Totem totem;
@@ -51,10 +54,11 @@ public class PlayerStatus : MonoBehaviour
         }
         if (health <= 0)
         {
+            health = 0;
             AudioManager.Instance.PlayClipByName("lose");
             GameOver.gameObject.SetActive(true);
             Destroy(gameObject);
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
         }
     }
 
@@ -133,7 +137,18 @@ public class PlayerStatus : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log(other.name);
+        if (other.name == "Particle System")
+        {
+            x++;
+            Debug.Log(x);
+        }
+            
+        if (x == 1)
+        {
+            damaged = true;
+            StartCoroutine(iFrame());
+        }
+            
     }
 
     private void TransferSpirits()
@@ -182,5 +197,7 @@ public class PlayerStatus : MonoBehaviour
             yield return new WaitForSeconds(.3f);
         }
         Physics2D.IgnoreLayerCollision(7, 8, false);
+        x = 0;
+        damaged = false;
     }
 }

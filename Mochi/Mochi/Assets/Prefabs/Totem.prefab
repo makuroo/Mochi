@@ -128,6 +128,7 @@ MonoBehaviour:
   lastTotemSpirits: 0
   nextBuffSpirits: 5
   barier: {fileID: 0}
+  damageBoss: 0
   VictoryPanel: {fileID: 0}
 --- !u!1001 &4068486829763832645
 PrefabInstance:

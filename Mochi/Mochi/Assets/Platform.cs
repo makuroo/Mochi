@@ -15,7 +15,7 @@ public class Platform : MonoBehaviour
    private IEnumerator ChangeLayer()
     {
         gameObject.layer = 0;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.3f);
         gameObject.layer = 6;
     }
 }
