@@ -1,2 +1,0 @@
-# Mochi
- Talent Group Project
