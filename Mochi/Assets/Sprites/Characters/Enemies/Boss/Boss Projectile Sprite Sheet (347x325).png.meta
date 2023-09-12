@@ -1,0 +1,404 @@
+fileFormatVersion: 2
+guid: 0bc67310fc2ce2e4f9e1f549a4755e6f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3954979508287818062
+    second: Boss Projectile Sprite Sheet (347x325)_0
+  - first:
+      213: -5623841883691174611
+    second: Boss Projectile Sprite Sheet (347x325)_1
+  - first:
+      213: -4631294852774257789
+    second: Boss Projectile Sprite Sheet (347x325)_2
+  - first:
+      213: -8463911974552320649
+    second: Boss Projectile Sprite Sheet (347x325)_3
+  - first:
+      213: 3585732846528704813
+    second: Boss Projectile Sprite Sheet (347x325)_4
+  - first:
+      213: -1240674139853400062
+    second: Boss Projectile Sprite Sheet (347x325)_5
+  - first:
+      213: -2324737965520809451
+    second: Boss Projectile Sprite Sheet (347x325)_6
+  - first:
+      213: -7707638659980249773
+    second: Boss Projectile Sprite Sheet (347x325)_7
+  - first:
+      213: -8078594672047940188
+    second: Boss Projectile Sprite Sheet (347x325)_8
+  - first:
+      213: -742777252755405787
+    second: Boss Projectile Sprite Sheet (347x325)_9
+  - first:
+      213: -3780188702549720623
+    second: Boss Projectile Sprite Sheet (347x325)_10
+  - first:
+      213: 4652591991970975641
+    second: Boss Projectile Sprite Sheet (347x325)_11
+  - first:
+      213: 6637188484813924792
+    second: Boss Projectile Sprite Sheet (347x325)_12
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Boss Projectile Sprite Sheet (347x325)_0
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 730
+        width: 289
+        height: 234
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b63e8277171d19c0800000000000000
+      internalID: -3954979508287818062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Projectile Sprite Sheet (347x325)_2
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 731
+        width: 286
+        height: 226
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38b9b4a7ed55abfb0800000000000000
+      internalID: -4631294852774257789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Projectile Sprite Sheet (347x325)_3
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 731
+        width: 286
+        height: 226
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77542a227e42a8a80800000000000000
+      internalID: -8463911974552320649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Projectile Sprite Sheet (347x325)_4
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 730
+        width: 317
+        height: 227
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d213bc0a60513c130800000000000000
+      internalID: 3585732846528704813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Projectile Sprite Sheet (347x325)_5
+      rect:
+        serializedVersion: 2
+        x: 1393
+        y: 731
+        width: 342
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2085604717d38cee0800000000000000
+      internalID: -1240674139853400062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Projectile Sprite Sheet (347x325)_6
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 408
+        width: 340
+        height: 235
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5129449232fdcbfd0800000000000000
+      internalID: -2324737965520809451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Projectile Sprite Sheet (347x325)_7
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 408
+        width: 325
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3553fceb977f80590800000000000000
+      internalID: -7707638659980249773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Projectile Sprite Sheet (347x325)_9
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 358
+        width: 327
+        height: 259
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5240646260021b5f0800000000000000
+      internalID: -742777252755405787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Projectile Sprite Sheet (347x325)_10
+      rect:
+        serializedVersion: 2
+        x: 1046
+        y: 325
+        width: 344
+        height: 293
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d1449047621a8bc0800000000000000
+      internalID: -3780188702549720623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Projectile Sprite Sheet (347x325)_11
+      rect:
+        serializedVersion: 2
+        x: 1400
+        y: 405
+        width: 280
+        height: 245
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99fc14624c3519040800000000000000
+      internalID: 4652591991970975641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss Projectile Sprite Sheet (347x325)_12
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 81
+        width: 286
+        height: 226
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b9a5a8f2c70c1c50800000000000000
+      internalID: 6637188484813924792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Boss Projectile Sprite Sheet (347x325)_0: -3954979508287818062
+      Boss Projectile Sprite Sheet (347x325)_10: -3780188702549720623
+      Boss Projectile Sprite Sheet (347x325)_11: 4652591991970975641
+      Boss Projectile Sprite Sheet (347x325)_12: 6637188484813924792
+      Boss Projectile Sprite Sheet (347x325)_2: -4631294852774257789
+      Boss Projectile Sprite Sheet (347x325)_3: -8463911974552320649
+      Boss Projectile Sprite Sheet (347x325)_4: 3585732846528704813
+      Boss Projectile Sprite Sheet (347x325)_5: -1240674139853400062
+      Boss Projectile Sprite Sheet (347x325)_6: -2324737965520809451
+      Boss Projectile Sprite Sheet (347x325)_7: -7707638659980249773
+      Boss Projectile Sprite Sheet (347x325)_9: -742777252755405787
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
