@@ -1,3 +1,6 @@
+
+![R2EHhE](https://github.com/makuroo/Mochi/assets/92146487/085b286c-f2f1-445d-964f-c29cc6bf09c2)
+
 # Mochi
 
 Second BGDC Talent Group Project
