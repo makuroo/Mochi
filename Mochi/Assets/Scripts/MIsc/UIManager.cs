@@ -1,50 +1,78 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public TMP_Text hpText;
-    public TMP_Text timeText;
-    public TMP_Text spiritsText;
-    public Slider healthBar;
-    public Image spiritImage;
-    public List<Sprite> spiritTextImage = new List<Sprite> { };
-    public Image debuffIcon; 
-    private PlayerStatus playerStats;
+    [SerializeField] private TMP_Text hpText;
+    [SerializeField] private TMP_Text timeText;
+    [SerializeField] private TMP_Text spiritsText;
+    [SerializeField] private Slider healthBar;
+    [SerializeField] private Image spiritImage;
+    [SerializeField] private List<Sprite> spiritTextImage = new List<Sprite> { };
+    [SerializeField] private Image debuffIcon;
+    
+    [SerializeField] private Player playerStats;
     public float timeValue = 0, iconTime = 0;
     private float nextDebuff = 60f;
-    // Start is called before the first frame update
-    void Start()
+
+    public Action<float> OnUpdateHealthUI;
+
+    public static UIManager Instance;
+
+    private void Awake()
     {
-        playerStats = GameObject.FindObjectOfType<PlayerStatus>();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance!=null && Instance!=this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnEnable()
+    {
+        OnUpdateHealthUI += UpdateHealthUI;
+    }
+
+    private void OnDisable()
+    {
+        OnUpdateHealthUI -= UpdateHealthUI;
+    }
+
+    private void Update()
+    {
+        spiritImage.sprite = spiritTextImage[playerStats.Spirits];
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        healthBar.value = playerStats.health;
-        if (playerStats.health <= 0)
-            Time.timeScale = 0;
-        spiritImage.sprite = spiritTextImage[playerStats.spirits];
         timeValue += Time.deltaTime;
         iconTime += Time.deltaTime;
         debuffIcon.fillAmount = iconTime/ 60f;
         int minutes = Mathf.FloorToInt(timeValue / 60);
         int seconds = Mathf.FloorToInt(timeValue % 60);
-        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        timeText.text = $"{minutes:00}:{seconds:00}";
+        
         if(Mathf.FloorToInt(timeValue/nextDebuff) == 1)
         {
-
             iconTime = 0;
             nextDebuff += 60;
-            playerStats.health -= 5;
-            playerStats.basicAttDmg -= 3;
-            playerStats.playerSpeed -= 1;
+            playerStats.OnDebuff?.Invoke();
             AudioManager.Instance.PlayClipByName("Debuff");
         }
     }
 
+
+    private void UpdateHealthUI(float currHealth)
+    {
+        healthBar.value = Mathf.Clamp(currHealth, 0, 100);
+    }
 }

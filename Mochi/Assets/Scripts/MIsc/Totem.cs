@@ -12,17 +12,19 @@ public class Totem : MonoBehaviour
     [SerializeField] private GameObject arrow;
 
     public GameObject barier;
-    private PlayerStatus playerStats;
+    private Player playerStats;
  
 
     private bool win;
 
     [SerializeField] private GameObject VictoryPanel;
 
+    [SerializeField] private bool isLastTotem;
+
     private void Awake()
     {
         barier = GameObject.FindGameObjectWithTag("Sensor");
-        playerStats = GameObject.FindObjectOfType<PlayerStatus>();
+        playerStats = GameObject.FindObjectOfType<Player>();
         
     }
 
@@ -30,31 +32,26 @@ public class Totem : MonoBehaviour
     {
         if (nextBuffSpirits<=0)
         {
-            if (playerStats.health != 50)
-            {
-               playerStats.health += 10;
-               playerStats.health = Mathf.Clamp(playerStats.health, 0f, 50f);
-            }
-            playerStats.playerSpeed += 1f;
-            playerStats.basicAttDmg += 3;
-            playerStats.skillDmg += 5;
+            playerStats.OnBuff?.Invoke();
             nextBuffSpirits += 5;
             AudioManager.Instance.PlayClipByName("Buff");
         }
+        
         if(playerStats.passed == true)
         {
             barier.GetComponent<BoxCollider2D>().isTrigger = false;
         }
+        
         if (storedSpirits >= 15 )
-         {
+        {
             if(playerStats.passed == false)
             {
                 arrow.SetActive(true);
                 barier.GetComponent<BoxCollider2D>().isTrigger = true;
             }   
             transform.GetChild(0).gameObject.SetActive(true);
-         }else if (lastTotemSpirits  >= 15 && win == false)
-         {
+        }else if (lastTotemSpirits  >= 15 && win == false)
+        {
             if(SceneManager.GetActiveScene().buildIndex == 3)
             {
                GameObject Boss  = GameObject.FindGameObjectWithTag("Boss");    
@@ -70,7 +67,7 @@ public class Totem : MonoBehaviour
             AudioManager.Instance.StopClipByName("BGM");
             AudioManager.Instance.PlayClipByName("win");
             Time.timeScale = 0;
-         }
+        }
     }
 
     private IEnumerator Delay(GameObject Boss)

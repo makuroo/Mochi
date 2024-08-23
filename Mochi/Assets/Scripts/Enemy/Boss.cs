@@ -11,7 +11,7 @@ public class Boss : MonoBehaviour
     public int basicAttackCount = 0;
     [SerializeField] GameObject projectile;
     public bool special = false;
-    [SerializeField] private PlayerStatus player;
+    [SerializeField] private Player player;
     private AudioSource source;
     public List<AudioClip> SFX = new List<AudioClip> {};
     private bool played = false;
@@ -26,7 +26,7 @@ public class Boss : MonoBehaviour
     private void Start()
     {
         nextFire = 5f;
-        player = GameObject.FindObjectOfType<PlayerStatus>();
+        player = GameObject.FindObjectOfType<Player>();
         source = transform.GetComponent<AudioSource>();
     }
     // Start is called before the first frame update
@@ -41,7 +41,7 @@ public class Boss : MonoBehaviour
     {
         timeSinceActive += Time.deltaTime;
         healthBar.value = health;
-        if (player != null || player.health > 0)
+        if (player != null || player.CurrHealth > 0)
         {
             CheckTimeToFire();
         }
@@ -91,8 +91,7 @@ public class Boss : MonoBehaviour
             anim.SetBool("attack", true);
             if (attack)
             {
-                player.health -= clawDamage;
-                StartCoroutine(player.iFrame());
+                player.OnTakeDamage?.Invoke(clawDamage);
             }
         }
 

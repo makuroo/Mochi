@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bullet : MonoBehaviour
+public class EnemyBullet : MonoBehaviour
 {
     [SerializeField] float speed = 7f;
     private Rigidbody2D rb;
     private PlayerMovement target;
     private Vector2 moveDirection;
-    private PlayerStatus iFrame;
     private Vector2 direction;
+    
+    public Boss Boss { get; set; }
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        target = GameObject.FindObjectOfType<PlayerMovement>();
-        iFrame = GameObject.FindObjectOfType<PlayerStatus>();
+        target = FindObjectOfType<PlayerMovement>();
         moveDirection = (target.transform.position - transform.position).normalized * speed;
         rb.velocity = new Vector3(moveDirection.x, moveDirection.y, 0);
         direction = target.transform.position - transform.position;
@@ -24,20 +24,11 @@ public class bullet : MonoBehaviour
         Destroy(gameObject, 5f);
     }
 
-    private void Update()
-    {
-        
-        //Quaternion newQuaternion = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 100f);
-        //transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, newQuaternion.z));
-        
-        
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.TryGetComponent(out Player player))
         {
-            collision.GetComponent<PlayerStatus>().health -= GameObject.FindObjectOfType<Boss>().projectileDamage;
+            player.OnTakeDamage?.Invoke(Boss.projectileDamage);
             Destroy(gameObject);
         }
     }

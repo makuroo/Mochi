@@ -8,7 +8,7 @@ public class PlayerSkill : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject[] bullets;
     [SerializeField] private float attackCooldown;
-    private PlayerStatus playerStats;
+    private Player playerStats;
     private Animator anim;
     public Image skillImage;
     [SerializeField] private AudioManager manager;
@@ -16,7 +16,7 @@ public class PlayerSkill : MonoBehaviour
     private void Awake()
     {
         attackCooldown = 0;
-        playerStats = transform.GetComponent<PlayerStatus>();
+        playerStats = transform.GetComponent<Player>();
         anim = transform.GetComponent<Animator>();
         manager = GameObject.FindObjectOfType<AudioManager>();
     }
@@ -26,10 +26,10 @@ public class PlayerSkill : MonoBehaviour
             skillImage.fillAmount = (10f - attackCooldown) / nextAttack;
         if (SceneManager.GetActiveScene().buildIndex == 3 && playerStats.passed == true)
         {
-            if (Input.GetKeyDown(KeyCode.E) && attackCooldown == 0 && playerStats.spirits !=0 && playerStats.spirits>0)
+            if (Input.GetKeyDown(KeyCode.E) && attackCooldown == 0 &&  playerStats.Spirits>0)
             {
                 Debug.Log("skill");
-                playerStats.spirits-=1;
+                playerStats.Spirits-=1;
                 attackCooldown += nextAttack;
                 anim.SetBool("isSkill", true);
                 manager.PlayClipByName("skill");

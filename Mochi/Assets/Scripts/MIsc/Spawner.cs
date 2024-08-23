@@ -9,7 +9,7 @@ public class Spawner : MonoBehaviour
     private Boss boss;
     private float xPos;
     private float duration = 5f;
-    private PlayerStatus player;
+    private Player player;
     private bool slow = true;
     private float currentSpeed;
     [SerializeField] private bool drop = true;
@@ -17,12 +17,11 @@ public class Spawner : MonoBehaviour
     private void Awake()
     {
         boss = GameObject.FindObjectOfType<Boss>();
-        player = GameObject.FindObjectOfType<PlayerStatus>();
+        player = GameObject.FindObjectOfType<Player>();
     }
     private void Update()
     {
-        currentSpeed = player.playerSpeed;
-        if(boss.special == true)
+        if(boss.special)
         {
             xPos = Random.Range(0.8f, 23f);
             Icicle = Ice[Random.Range(0, 2)];
@@ -31,16 +30,16 @@ public class Spawner : MonoBehaviour
             {
                 if (slow)
                 {
-                    player.playerSpeed = 0.7f * player.playerSpeed;
+                    player.CurrPlayerSpeed = 0.7f * player.CurrPlayerSpeed;
                     slow = false;
                     Debug.Log(slow);
                 }
                 drop = false;
-                StartCoroutine("Special");
+                StartCoroutine(nameof(Special));
             }
             if(duration <= 0)
             {
-                player.playerSpeed = player.playerSpeed / 0.7f;
+                player.CurrPlayerSpeed /= 0.7f;
                 boss.special = false;
                 slow = true;
                 duration = 5f;

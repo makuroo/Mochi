@@ -152,7 +152,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator FungiAttack()
     {
-        PlayerStatus iFrame = GameObject.FindObjectOfType<PlayerStatus>();
+        Player iFrame = GameObject.FindObjectOfType<Player>();
         while(countDown == true)
         {
             attack = false;

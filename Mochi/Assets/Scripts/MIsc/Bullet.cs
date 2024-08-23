@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     private float direction;
     private float lifetime;
 
-    private PlayerStatus playerStats;
+    private Player playerStats;
 
     private BoxCollider2D boxCollider;
     //   [SerializeField] private AudioManager manager;
@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
     private void Awake()
     {
         boxCollider = transform.GetComponent<BoxCollider2D>();
-        playerStats = GameObject.FindObjectOfType<PlayerStatus>();
+        playerStats = GameObject.FindObjectOfType<Player>();
     }
 
     private void FixedUpdate()
@@ -45,13 +45,13 @@ public class Bullet : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Boss"))
         {
-            collision.transform.GetComponent<Boss>().health -= playerStats.skillDmg;
+            collision.transform.GetComponent<Boss>().health -= playerStats.CurrSkillDamage;
             Deactivate();
         }else if(collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Enemy Spirit")
             || collision.gameObject.CompareTag("Fungi") || collision.gameObject.CompareTag("Fungi Spirit")
             || collision.gameObject.CompareTag("Bird") || collision.gameObject.CompareTag("Bird Spirit"))
         {
-            collision.gameObject.GetComponent<Enemy>().health -= playerStats.skillDmg;
+            collision.gameObject.GetComponent<Enemy>().health -= playerStats.CurrSkillDamage;
             Deactivate();
         }
     }
