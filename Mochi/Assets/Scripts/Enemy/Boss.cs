@@ -1,3 +1,4 @@
+using System;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,18 @@ public class Boss : MonoBehaviour
     [SerializeField] private Totem totem;
     private float timeSinceActive = 0;
     public int nextDamage = 5;
+
+    public static Action<int> OnLastTotemSpiritIncrease;
+
+    private void OnEnable()
+    {
+        OnLastTotemSpiritIncrease += LastTotemSpiritIncrease;
+    }
+
+    private void OnDisable()
+    {
+        OnLastTotemSpiritIncrease -= LastTotemSpiritIncrease;
+    }
 
     private void Start()
     {
@@ -57,17 +70,7 @@ public class Boss : MonoBehaviour
             StopCoroutine(player.iFrame());
             Destroy(gameObject, 1f);
         }
-        if(totem.lastTotemSpirits >= nextDamage)
-        {
-            health -= (0.3f * health);
-            nextDamage += 5;
-        }
 
-        if(totem.lastTotemSpirits >= 15)
-        {
-            healthBar.transform.position = new Vector2(0f, 3f);
-            health = 0;
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -95,6 +98,21 @@ public class Boss : MonoBehaviour
             }
         }
 
+    }
+
+    private void LastTotemSpiritIncrease(int currAmount)
+    {
+        if(currAmount >= nextDamage)
+        {
+            health -= (0.3f * health);
+            nextDamage += 5;
+        }
+
+        if(currAmount >= 15)
+        {
+            healthBar.transform.position = new Vector2(0f, 3f);
+            health = 0;
+        }
     }
 
     public void EndAttack()

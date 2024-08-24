@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
@@ -5,14 +6,13 @@ using UnityEngine;
 public class Totem : MonoBehaviour
 {
     public int storedSpirits = 0;
-    public int lastTotemSpirits = 0;
     public int nextBuffSpirits = 5;
     private int clearedLevels = 1;
     [SerializeField] private GameObject BossHealthBar;
     [SerializeField] private GameObject arrow;
 
     public GameObject barier;
-    private Player playerStats;
+    [SerializeField] private Player playerStats;
  
 
     private bool win;
@@ -24,8 +24,6 @@ public class Totem : MonoBehaviour
     private void Awake()
     {
         barier = GameObject.FindGameObjectWithTag("Sensor");
-        playerStats = GameObject.FindObjectOfType<Player>();
-        
     }
 
     void Update()
@@ -41,32 +39,51 @@ public class Totem : MonoBehaviour
         {
             barier.GetComponent<BoxCollider2D>().isTrigger = false;
         }
-        
-        if (storedSpirits >= 15 )
+    }
+
+    public void RecieveSpirits(int amount)
+    {
+        if (nextBuffSpirits > 0)
         {
-            if(playerStats.passed == false)
+            nextBuffSpirits -= amount;
+            storedSpirits += amount;
+            if (nextBuffSpirits <= 0)
             {
-                arrow.SetActive(true);
-                barier.GetComponent<BoxCollider2D>().isTrigger = true;
-            }   
-            transform.GetChild(0).gameObject.SetActive(true);
-        }else if (lastTotemSpirits  >= 15 && win == false)
-        {
-            if(SceneManager.GetActiveScene().buildIndex == 3)
-            {
-               GameObject Boss  = GameObject.FindGameObjectWithTag("Boss");    
-                Boss.GetComponent<Boss>().health = 0;
-                BossHealthBar.transform.position = new Vector2(2000f, 2000f);
-                Boss.SetActive(false);
+                playerStats.OnBuff?.Invoke();
+                nextBuffSpirits += 5;
             }
-            win = true;
-            clearedLevels = SceneManager.GetActiveScene().buildIndex + 1;
-            PlayerPrefs.SetInt("ClearedLevel", clearedLevels);
-            transform.GetChild(0).gameObject.SetActive(true);
-            VictoryPanel.SetActive(true);
-            AudioManager.Instance.StopClipByName("BGM");
-            AudioManager.Instance.PlayClipByName("win");
-            Time.timeScale = 0;
+
+            if (isLastTotem)
+            {
+                Boss.OnLastTotemSpiritIncrease?.Invoke(storedSpirits);
+                Enemy.onLastTotemSpiritIncrease?.Invoke(storedSpirits);
+            }
+
+            if (storedSpirits < 15) return;
+            
+            if (!isLastTotem)
+            {
+                barier.GetComponent<Collider2D>().isTrigger = true;
+                arrow.SetActive(true);
+            }
+            else
+            {
+                if(SceneManager.GetActiveScene().buildIndex == 3)
+                {
+                    GameObject Boss  = GameObject.FindGameObjectWithTag("Boss");    
+                    Boss.GetComponent<Boss>().health = 0;
+                    BossHealthBar.transform.position = new Vector2(2000f, 2000f);
+                    Boss.SetActive(false);
+                }
+                win = true;
+                clearedLevels = SceneManager.GetActiveScene().buildIndex + 1;
+                PlayerPrefs.SetInt("ClearedLevel", clearedLevels);
+                transform.GetChild(0).gameObject.SetActive(true);
+                VictoryPanel.SetActive(true);
+                AudioManager.Instance.StopClipByName("BGM");
+                AudioManager.Instance.PlayClipByName("win");
+                Time.timeScale = 0;
+            }
         }
     }
 

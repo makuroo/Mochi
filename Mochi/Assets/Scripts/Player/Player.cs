@@ -43,6 +43,8 @@ public class Player : MonoBehaviour
         set => currSkillDamage = value;
     }
 
+    public float PlayerSpeed => playerSpeed;
+
     [SerializeField] private int spirits = 0;
     
     [SerializeField] private int skillDmg = 25;
@@ -56,17 +58,13 @@ public class Player : MonoBehaviour
     [SerializeField] private float iFrameDuration;
     [SerializeField] private float numberOfFlash;
 
-    private int x = 0;
-
     private bool inArea;
     private bool inAreaLast;
     public bool passed = false;
     public bool damaged = false;
 
     [SerializeField] private Camera cam;
-    private Totem totem;
     private SpriteRenderer sr;
-    private UIManager ui;
 
     [SerializeField] private GameObject skillIcon;
     [SerializeField] private GameObject GameOver;
@@ -74,6 +72,8 @@ public class Player : MonoBehaviour
     public Action<float> OnTakeDamage;
     public Action OnDebuff;
     public Action OnBuff;
+
+    private Totem _totem;
 
     private void OnEnable()
     {
@@ -91,26 +91,15 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        currHealth = health;
-        Physics2D.IgnoreLayerCollision(7, 8, false);
         sr = transform.GetComponent<SpriteRenderer>();
-        ui = GameObject.FindObjectOfType<UIManager>();
-        totem = GameObject.FindObjectOfType<Totem>();
         Init();
-    }
-    private void Update()
-    {
-        if (inArea == true || inAreaLast == true)
-        {
-            TransferSpirits();
-        }
     }
 
     private void Init()
     {
         CurrHealth = health;
         CurrAttackDamage = basicAttDmg;
-        CurrPlayerSpeed = playerSpeed;
+        CurrPlayerSpeed = PlayerSpeed;
         CurrSkillDamage = skillDmg;
     }
 
@@ -119,8 +108,16 @@ public class Player : MonoBehaviour
         if (!collision.gameObject.TryGetComponent(out Enemy enemy)) return;
         AudioManager.Instance.PlayClipByName("Damaged");
         TakeDamage(enemy.dmg);
-            
-        Debug.Log(health);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F)&&_totem)
+        {
+            _totem.RecieveSpirits(Spirits);
+            Spirits = 0;
+            AudioManager.Instance.PlayClipByName("collect");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -145,25 +142,15 @@ public class Player : MonoBehaviour
         {
 
             passed = true;
-            Debug.Log("a");
             cam = FindObjectOfType<Camera>();
             cam.transform.position = new Vector3(11.9f, -0.45f, -35.11629f);
             transform.position = new Vector2(1.081689f, transform.position.y);
             skillIcon.SetActive(true);
         }
 
-        if (collision.gameObject.CompareTag("Totem") && totem.storedSpirits < 15)
+        if (collision.TryGetComponent(out Totem totem))
         {
-            totem = collision.GetComponent<Totem>();
-            inArea = true;
-            
-        }
-
-        if (collision.gameObject.CompareTag("Last Totem") && totem.lastTotemSpirits < 15)
-        {
-            totem = collision.GetComponent<Totem>();
-            inAreaLast = true;
-            Debug.Log("enter totem");
+            _totem = totem;
         }
     }
 
@@ -186,41 +173,6 @@ public class Player : MonoBehaviour
         if (other.TryGetComponent(out Particle particle))
         {
             Debug.Log("jeeere");
-        }
-    }
-
-    private void TransferSpirits()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            if(Spirits != 0)
-                AudioManager.Instance.PlayClipByName("collect");
-            totem.nextBuffSpirits = totem.nextBuffSpirits - Spirits;
-            if (inAreaLast)
-            {
-                totem.lastTotemSpirits += Spirits;
-                if (totem.lastTotemSpirits > 15)
-                {
-                    Spirits = totem.lastTotemSpirits - 15;
-                }
-                else
-                {
-                    Spirits -= Spirits;
-                }
-            }
-            else
-            {
-                totem.storedSpirits += Spirits;
-                if(totem.storedSpirits > 15)
-                {
-                    Spirits = totem.storedSpirits - 15;
-                }
-                else
-                {
-                    Spirits -= Spirits;
-                }
-            }
-            Debug.Log("buff");
         }
     }
 
@@ -272,7 +224,6 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(.3f);
         }
         Physics2D.IgnoreLayerCollision(7, 8, false);
-        x = 0;
         damaged = false;
     }
 }
