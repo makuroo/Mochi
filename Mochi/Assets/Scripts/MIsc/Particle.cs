@@ -5,22 +5,17 @@ using UnityEngine;
 public class Particle : MonoBehaviour
 {
     private int fungiDmg;
-    private PlayerStatus iFrame;
+    private Player iFrame;
     private void Awake()
     {
         fungiDmg = gameObject.GetComponentInParent<Enemy>().dmg;
-        iFrame = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStatus>();
     }
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log(other.name);
-        if(other.name == "Player")
+        if(other.TryGetComponent(out Player player)&& !player.damaged)
         {
-            if (iFrame.damaged == true)
-            {
-                other.GetComponent<PlayerStatus>().health -= fungiDmg;
-                iFrame.damaged = false;
-            }
+            player.damaged = true;
+            player.OnTakeDamage?.Invoke(fungiDmg);
         }
     }
 }

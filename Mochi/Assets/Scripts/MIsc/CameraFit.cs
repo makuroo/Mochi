@@ -8,13 +8,13 @@ public class CameraFit : MonoBehaviour
     public float xVariable;
     public float yVariable;
     public GameObject Boss;
-    private PlayerStatus playerStats;
+    private Player playerStats;
     [SerializeField] private GameObject healthbar;
     // Start is called before the first frame update
     private void Awake()
     {
         Boss = GameObject.FindGameObjectWithTag("Boss");
-        playerStats = GameObject.FindObjectOfType<PlayerStatus>();
+        playerStats = GameObject.FindObjectOfType<Player>();
     }
     void Update()
     {

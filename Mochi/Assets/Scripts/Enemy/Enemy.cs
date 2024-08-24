@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
@@ -23,7 +24,6 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private bool isMovingLeft;
     [SerializeField] private Sprite spirit;
-    [SerializeField] private Totem totem;
     [SerializeField] private AudioSource audioSource;
 
     private BoxCollider2D enemyCollider;
@@ -31,6 +31,8 @@ public class Enemy : MonoBehaviour
 
     private bool attack =true;
     private bool play = true;
+
+    public static Action<int> onLastTotemSpiritIncrease;
 
     // Start is called before the first frame update
     void Awake()
@@ -41,8 +43,17 @@ public class Enemy : MonoBehaviour
         anim = transform.GetComponent<Animator>();
         leftEdge = transform.position.x - moveDistance;
         rightEdge = transform.position.x + moveDistance;
-        totem = GameObject.FindGameObjectWithTag("Last Totem").GetComponent<Totem>();
         audioSource = gameObject.GetComponent<AudioSource>();
+    }
+
+    private void OnEnable()
+    {
+        onLastTotemSpiritIncrease += LastTotemSpiritIncrease;
+    }
+
+    private void OnDisable()
+    {
+        onLastTotemSpiritIncrease -= LastTotemSpiritIncrease;
     }
 
     // Update is called once per frame
@@ -99,27 +110,6 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if(totem.lastTotemSpirits >= 15){
-            if(gameObject.CompareTag("Enemy") || gameObject.CompareTag("Fungi") || gameObject.CompareTag("Bird"))
-                gameObject.SetActive(false);
-            else
-            {
-                speed = 0;
-                gameObject.layer = 0;
-                isMovingLeft = false;
-                sr.sprite = spirit;
-                gameObject.tag = "Spirit";
-                if(play)
-                    audioSource.PlayOneShot(audioSource.clip);
-                play = false;
-                transform.localScale = new Vector2(1f, 1f);
-                enemyCollider.size = new Vector2(0.28f, 0.488f);
-                enemyCollider.offset = new Vector2(0f, 0f);
-                enemyCollider.isTrigger = true;
-                anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animation/Collectibles/spirit") as RuntimeAnimatorController;
-            }
-        }
-
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -152,7 +142,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator FungiAttack()
     {
-        PlayerStatus iFrame = GameObject.FindObjectOfType<PlayerStatus>();
+        Player iFrame = GameObject.FindObjectOfType<Player>();
         while(countDown == true)
         {
             attack = false;
@@ -168,7 +158,29 @@ public class Enemy : MonoBehaviour
         }
     }
 
-
+    private void LastTotemSpiritIncrease(int amount)
+    {
+        if(amount >= 15){
+            if(gameObject.CompareTag("Enemy") || gameObject.CompareTag("Fungi") || gameObject.CompareTag("Bird"))
+                gameObject.SetActive(false);
+            else
+            {
+                speed = 0;
+                gameObject.layer = 0;
+                isMovingLeft = false;
+                sr.sprite = spirit;
+                gameObject.tag = "Spirit";
+                if(play)
+                    audioSource.PlayOneShot(audioSource.clip);
+                play = false;
+                transform.localScale = new Vector2(1f, 1f);
+                enemyCollider.size = new Vector2(0.28f, 0.488f);
+                enemyCollider.offset = new Vector2(0f, 0f);
+                enemyCollider.isTrigger = true;
+                anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animation/Collectibles/spirit") as RuntimeAnimatorController;
+            }
+        }
+    }
 
     private IEnumerator Damaged()
     {

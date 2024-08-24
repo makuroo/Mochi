@@ -7,8 +7,7 @@ public class Ice : MonoBehaviour
     public int damage = 12;
     public List<AudioClip> iceSFX = new List<AudioClip> { };
     private AudioSource audioSource;
-    private PlayerStatus playerStats;
-
+    
     private void Awake()
     {
         audioSource = transform.GetComponent<AudioSource>();
@@ -29,11 +28,9 @@ public class Ice : MonoBehaviour
                 audioSource.Play();
             }
 
-            if (collision.gameObject.CompareTag("Player"))
+            if (collision.gameObject.TryGetComponent(out Player player))
             {
-                playerStats = collision.GetComponent<PlayerStatus>();
-                playerStats.health -= damage;
-                playerStats.StartCoroutine(playerStats.iFrame());
+                player.OnTakeDamage?.Invoke(damage);
             }
             Destroy(gameObject, 2f);
         }

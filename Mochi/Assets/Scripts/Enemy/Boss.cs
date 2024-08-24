@@ -1,3 +1,4 @@
+using System;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class Boss : MonoBehaviour
     public int basicAttackCount = 0;
     [SerializeField] GameObject projectile;
     public bool special = false;
-    [SerializeField] private PlayerStatus player;
+    [SerializeField] private Player player;
     private AudioSource source;
     public List<AudioClip> SFX = new List<AudioClip> {};
     private bool played = false;
@@ -23,10 +24,22 @@ public class Boss : MonoBehaviour
     private float timeSinceActive = 0;
     public int nextDamage = 5;
 
+    public static Action<int> OnLastTotemSpiritIncrease;
+
+    private void OnEnable()
+    {
+        OnLastTotemSpiritIncrease += LastTotemSpiritIncrease;
+    }
+
+    private void OnDisable()
+    {
+        OnLastTotemSpiritIncrease -= LastTotemSpiritIncrease;
+    }
+
     private void Start()
     {
         nextFire = 5f;
-        player = GameObject.FindObjectOfType<PlayerStatus>();
+        player = GameObject.FindObjectOfType<Player>();
         source = transform.GetComponent<AudioSource>();
     }
     // Start is called before the first frame update
@@ -41,7 +54,7 @@ public class Boss : MonoBehaviour
     {
         timeSinceActive += Time.deltaTime;
         healthBar.value = health;
-        if (player != null || player.health > 0)
+        if (player != null || player.CurrHealth > 0)
         {
             CheckTimeToFire();
         }
@@ -57,17 +70,7 @@ public class Boss : MonoBehaviour
             StopCoroutine(player.iFrame());
             Destroy(gameObject, 1f);
         }
-        if(totem.lastTotemSpirits >= nextDamage)
-        {
-            health -= (0.3f * health);
-            nextDamage += 5;
-        }
 
-        if(totem.lastTotemSpirits >= 15)
-        {
-            healthBar.transform.position = new Vector2(0f, 3f);
-            health = 0;
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -91,11 +94,25 @@ public class Boss : MonoBehaviour
             anim.SetBool("attack", true);
             if (attack)
             {
-                player.health -= clawDamage;
-                StartCoroutine(player.iFrame());
+                player.OnTakeDamage?.Invoke(clawDamage);
             }
         }
 
+    }
+
+    private void LastTotemSpiritIncrease(int currAmount)
+    {
+        if(currAmount >= nextDamage)
+        {
+            health -= (0.3f * health);
+            nextDamage += 5;
+        }
+
+        if(currAmount >= 15)
+        {
+            healthBar.transform.position = new Vector2(0f, 3f);
+            health = 0;
+        }
     }
 
     public void EndAttack()
